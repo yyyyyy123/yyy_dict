@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8"/>
+    <title>yyy的数据字典</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1"
+    />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <link rel="stylesheet" href="/sdk/sdk.css"/>
+    <link rel="stylesheet" href="/sdk/helper.css"/>
+    <link rel="stylesheet" href="/sdk/iconfont.css"/>
+    <link href="/font.css"/>
+    <!-- 这是默认主题所需的，如果是其他主题则不需要 -->
+    <!-- 从 1.1.0 开始 sdk.css 将不支持 IE 11，如果要支持 IE11 请引用这个 css，并把前面那个删了 -->
+    <!-- <link rel="stylesheet" href="sdk-ie11.css" /> -->
+    <!-- 不过 amis 开发团队几乎没测试过 IE 11 下的效果，所以可能有细节功能用不了，如果发现请报 issue -->
+    <style>
+        html,
+        body,
+        .app-wrapper {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="root" class="app-wrapper"></div>
+<script src="/sdk/sdk.js"></script>
+<script type="text/javascript">
+    (function () {
+        let amis = amisRequire('amis/embed');
+        // 通过替换下面这个配置来生成不同页面
+        let amisJSON =
+            {
+                "type": "page",
+                "style": {
+                    "fontFamily": "YaHei"
+                },
+                "css":{
+                    ".xx1":{
+                        "background":"#fef3c7"
+                    }
+                },
+                "initApi": "/json/all",
+                "body": [
+                    // 数据库 连接 ，
+                    {
+                        "type": "panel",
+                        "title": "数据库连接",
+                        "body":
+                            {
+                                "className": "w-full  ",
+                                "type": "nav",
+                                "source": "${connections}"
+                            }
+                    },
+
+                    // 大标题，某某数据库。
+                    {
+                        "type": "flex",
+                        "justify": "center",
+                        "className": "text-2xl",
+                        "items": [
+                            {
+                                "style": {
+                                    "height": 50,
+                                    "margin": 5
+                                },
+                                "type": "tpl",
+                                "tpl": "${db_name}数据字典"
+                            }
+                        ]
+                    },
+                    // 布局 ，左右分列。
+                    {
+                        "type": "flex",
+                        "justify": "space-between",
+                        "items": [
+                            {
+                                "type": "service",
+                                "schemaApi": "/json/left",
+                                "style": {
+                                    "width": "20%"
+                                }
+                            },
+
+                            //布局 ，程序 主体，表定义。
+                            {
+
+                                "style": {
+
+
+                                    "width": "80%"
+                                },
+                                "type": "wrapper",
+                                "body": [
+                                    {
+                                        "type": "table",
+                                        "size": "small",
+                                        "headerClassName": " text-2xl",
+                                        "footerClassName": " text-2xl",
+
+                                        "footer": "Footer",
+                                        "header": "hhh",
+
+                                        "itemActions": [
+                                            {
+                                                "label": "编辑",
+                                                "type": "button",
+                                                "actionType": "dialog",
+                                                "dialog": {
+                                                    "title": "编辑",
+                                                    "body": "${engine}"
+                                                }
+                                            },
+                                            {
+                                                "label": "删除",
+                                                "type": "button",
+                                                "actionType": "ajax",
+                                                "confirmText": "确认要删除？",
+                                                "api": "/amis/api/mock2/form/saveForm"
+                                            }
+                                        ],
+
+                                        // "rowClassName": "border border-solid border-gray-200",
+                                        "rowClassNameExpr": "${index %2==0 ? '':'bg-gray-100 ' }",
+                                        "columns": [
+                                            {
+                                                "label": "Engine",
+                                                "name": "engine",
+                                                "className": "leading-3 ",
+                                                // "align": "center",
+                                                "labelClassName": "font-bold text-center content-center text-lg",
+                                                "width": "20%"
+                                            },
+                                            {
+                                                "label": "Version",
+                                                "name": "version",
+                                                "className": "leading-3 ",
+                                                "labelClassName": "font-bold text-center content-center text-lg",
+                                                "width": "70%"
+                                            }
+
+
+                                        ],
+                                        "items": [
+                                            {
+                                                "engine": "11",
+                                                "version": "版本11"
+                                            },
+                                            {
+                                                "engine": "12",
+                                                "version": "版本12"
+                                            },
+                                            {
+                                                "engine": "11",
+                                                "version": "版本11"
+                                            },
+                                            {
+                                                "engine": "12",
+                                                "version": "版本12"
+                                            }
+
+                                        ]
+                                    },
+                                    {
+                                        "type": "html",
+                                        "html": "<div style='margin-bottom:30px'>回到首页</div>"
+                                    },
+
+
+
+
+
+
+
+
+                                    {
+                                        "type": "table2",
+                                        "size":"small",
+                                        "bordered": false,
+
+                                        "title": {
+                                            "type": "tpl",
+                                            "className": "text-2xl",
+                                            "tpl": "tttttlieee"
+                                        },
+                                        "footer": {
+                                            "type": "tpl",
+                                            "className": "text-2xl",
+                                            "tpl": "footrrrrr"
+                                        },
+                                        "quickSaveApi": {
+                                            "url": "/amis/api/mock2/sample/bulkUpdate",
+                                            "method": "post"
+                                        },
+                                        "columns": [
+                                            {
+                                                "title": "Engine2优先2",
+                                                "name": "engine",
+                                                "width":"20%",
+                                                "titleClassName": "font-bold text-center  text-lg",
+                                                "className": "${index %2==0 ? '':'xx1 ' }",
+                                                "quickEdit": {
+                                                    "type": "textarea",
+                                                    "showCounter": true,
+                                                    "minRows": 5,
+                                                    "style": {
+                                                        "width": "800px"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "title": "Version3良好",
+                                                "width":"80%",
+                                                "className": "${index %2==0 ? '':'xx1 ' }",
+                                                "titleClassName": "font-bold text-center  text-lg",
+                                                "name": "version"
+                                            }
+                                        ],
+
+                                        "items": [
+                                            {
+                                                "engine": "11",
+                                                "version": "版本1551"
+                                            },
+                                            {
+                                                "engine": "12",
+                                                "version": "版本1662"
+                                            },
+                                            {
+                                                "engine": "126",
+                                                "version": "版本771662"
+                                            },
+                                            {
+                                                "engine": "11",
+                                                "version": "版本1551"
+
+                                            }
+                                        ]
+                                    }
+
+
+
+
+
+                                ]
+                            }
+                        ]
+                    },
+
+
+                    //  底部的logo
+                    {
+                        "type": "flex",
+                        "className": "font-bold text-secondary",
+                        "style": {
+                            "flexDirection": "column",
+                            "justifyContent": "center",
+                            "alignItems": "center"
+                        },
+                        "items": [
+                            {
+                                "type": "tpl",
+                                "tpl": "Released under the MIT License.",
+                            },
+                            {
+                                "type": "tpl",
+                                "tpl": "Copyright © 2024-present yyy's Data Dictionary",
+                            }
+
+                        ]
+                    }
+
+                ]
+
+            };
+        let amisScoped = amis.embed('#root', amisJSON);
+    })();
+</script>
+</body>
+</html>
